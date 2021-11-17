@@ -34,4 +34,4 @@ npm start
 - [create-react-app](https://github.com/facebookincubator/create-react-app)
 - [The new GitHub GraphQL API](https://medium.com/apollo-stack/the-new-github-graphql-api-811b005d1b6e#.lcm2mmtn2)
 - [Github GraphQL API React Example](https://medium.com/@katopz/github-graphql-api-react-example-eace824d7b61#.fil01xjsl)
-- [🔍 How to search with Github GraphQL](https://medium.com/@katopz/how-to-search-with-github-graphql-e6c142dc61ed)
+- [🔍 How to search with Github GraphQL](https://medium.com/@katopz/how-to-search-with-github-graphql-e6c142dc61ed)# graphQL-react
