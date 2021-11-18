@@ -1,8 +1,8 @@
 const base64 = require('base-64')
 
 const config = {
-  GITHUB_CLIENT_ID: 'e0b1671ff764de482212',
-  GITHUB_CLIENT_SECRET: '8f77dcfd6a807cff38ac558400c859f240806071'
+  GITHUB_CLIENT_ID: 'Iv1.026d10d90b534312',
+  GITHUB_CLIENT_SECRET: 'e98138ba8b1149bb16202f0c7937bba2c8e4748e'
 }
 
 const AUTH_URL_PATH = 'https://api.github.com/authorizations'

@@ -1,59 +1,68 @@
 // React
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+
+  Routes,
+
+  useRoutes,
+} from "react-router-dom";
+
+
 
 // Apollo
 import { ApolloProvider } from 'react-apollo'
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
+import ApolloClient from 'apollo-client';
+import { ApolloLink, concat } from '@apollo/client';
+import { HttpLink  } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import Routers from './Routers'
 
-// Auth
-import { login } from './githubLogin'
-import { username, password } from './config'
 
 // App.Components
 import Repository from './repository'
 
-// Global.Auth
-let TOKEN = null
 
-// Global.Apollo
-const networkInterface = createNetworkInterface('https://api.github.com/graphql')
+// ------ building the link to github graphql + headers that contain the token -----
+const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });
 
-networkInterface.use([
-  {
-    applyMiddleware (req, next) {
-      if (!req.options.headers) {
-        req.options.headers = {} // Create the header object if needed.
-      }
-
-      // Send the login token in the Authorization header
-      req.options.headers.authorization = `Bearer ${TOKEN}`
-      next()
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      authorization: 'bearer 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',
     }
-  }
-])
+  }));
+
+  return forward(operation);
+})
+// ----------------------------------------------------------------------------------
 
 const client = new ApolloClient({
-  networkInterface
-})
+  
+  cache: new InMemoryCache(),
+  link: concat(authMiddleware, httpLink),
+});
+
 
 // App
+
+
+
+
+
 export default class App extends Component {
+  
+ 
   constructor () {
     super()
-    this.state = { login: false }
   }
 
-  componentDidMount () {
-    if (username === 'xxx') {
-      throw new Error('Please create a config.js your username and password.')
-    }
-    login(username, password).then(token => {
-      TOKEN = token
-      this.setState({ login: true })
-    })
-  }
 
   routeForRepository (login, name) {
+
+
     return {
       title: `${login}/${name}`,
       component: Repository,
@@ -62,17 +71,18 @@ export default class App extends Component {
     }
   }
 
-  render () {
-    // Log in state
-    if (!this.state.login) {
-      return <p>Login...</p>
-    }
+  
+  
 
-    // Logged in, fetch from Github
-    return this.state.login
-      ? <ApolloProvider client={client}>
-        <Repository {...this.routeForRepository('facebook', 'react')} />
+  render () {
+
+    
+    return <ApolloProvider client={client}>
+      <Routers/>
+        <Repository {...this.routeForRepository('torvalds','linux')} />
+
       </ApolloProvider>
-      : <p>Logging in...</p>
+
+      
   }
 }

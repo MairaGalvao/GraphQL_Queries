@@ -4,24 +4,38 @@ import React from 'react';
 // GraphQL
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import Routers from './Routers'
+
+
+<Routers/>
 
 const GetRepositoryInfoQuery = gql`
-  query GetRepositoryIssues($name: String!, $login: String!) {
-    repositoryOwner(login: $login) {
-      repository(name: $name) {
-        stargazers {
+query {
+  repository(owner:"torvalds", name:"linux") {
+    nameWithOwner
+      object(expression: "master") {
+      ... on Commit {
+        history {
           totalCount
-        }
-        watchers {
-          totalCount
+          nodes {
+            ... on Commit {
+              committedDate
+              additions
+              author {
+                name
+                email
+              }
+            }
+          }
         }
       }
     }
   }
+}
 `;
 
 const withInfo = graphql(GetRepositoryInfoQuery, {
-  options: ({ login = "facebook" , name = "react" }) => {
+  options: ({ login = "torvalds" , name = "linux" }) => {
     return {
       variables: {
         login,
@@ -56,19 +70,28 @@ class Repository extends React.Component {
       name: props.name,
       stargazers: 0,
       watchers: 0,
+ 
+
+ 
     };
   }
 
   componentWillReceiveProps(newProps) {
+    console.log('new Props', newProps)
     // DRY
     const repo = newProps.data.repositoryOwner.repository;
+    console.log("repo",repo)
+    console.log("data",newProps.data)
+
 
     // states
     this.setState({
       login: this.props.login,
       name: this.props.name,
       stargazers: repo.stargazers.totalCount,
-      watchers: repo.watchers.totalCount
+      watchers: repo.watchers.totalCount,      
+
+
     });
   }
 

@@ -3,24 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "^3.2.0"
+    "react-scripts": "^4.0.3"
   },
   "dependencies": {
-    "apollo-client": "^2.6.4",
-    "base-64": "^0.1.0",
-    "graphql-tag": "^2.4.2",
-    "react": "^16.10.2",
-    "react-apollo": "^3.1.2",
-    "react-dom": "^16.10.2"
+    "@apollo/client": "^3.4.17",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@material-ui/core": "^4.12.3",
+    "@material/button": "^13.0.0",
+    "@mui/material": "^5.1.0",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
+    "base-64": "^1.0.0",
+    "graphql": "^16.0.1",
+    "graphql-tag": "^2.12.6",
+    "graphqurl": "^1.0.1",
+    "history": "^5.1.0",
+    "react": "^17.0.2",
+    "react-apollo": "^3.1.5",
+    "react-dom": "^17.0.2",
+    "react-github-login": "^1.0.3",
+    "react-router-dom": "^6.0.0-beta.8",
+    "react-scroll": "^1.8.4",
+    "use-history": "^1.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/react-scripts/config/eslint.js"
   },
   "browserslist": {
     "production": [
